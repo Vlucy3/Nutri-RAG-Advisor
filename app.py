@@ -1,5 +1,14 @@
 import streamlit as st
 import os
+
+# --- RENDER SQLITE FIX ---
+# Render's default SQLite is too old for ChromaDB. 
+# We swap it with pysqlite3-binary if running on Linux.
+if os.environ.get("IS_RENDER") == "true":
+    __import__('pysqlite3')
+    import sys
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -17,7 +26,11 @@ st.set_page_config(page_title="Nutri-RAG Advisor", page_icon="🥗", layout="wid
 @st.cache_resource
 def get_vector_db():
     """Initializes and returns the Chroma vector database."""
-    embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
+    # Force CPU to save RAM on Render (512MB limit)
+    embeddings = HuggingFaceEmbeddings(
+        model_name=EMBEDDING_MODEL,
+        model_kwargs={'device': 'cpu'}
+    )
     
     # Ensure data directory exists
     if not os.path.exists(DATA_PATH):
