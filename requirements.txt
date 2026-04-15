@@ -1,0 +1,9 @@
+streamlit
+langchain
+langchain-community
+langchain-huggingface
+chromadb
+pypdf
+python-dotenv
+sentence-transformers==3.0.1
+pysqlite3-binary

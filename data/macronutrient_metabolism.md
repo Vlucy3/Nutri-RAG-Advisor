@@ -1,0 +1,9 @@
+# Macronutrient Metabolism and the Leucine Threshold
+**Category:** Macronutrients
+**Year:** 2024
+
+The evaluation of protein quality has transitioned to the Digestible Indispensable Amino Acid Score (DIAAS). Unlike the older PDCAAS, DIAAS measures amino acid digestibility at the end of the small intestine (ileal digestibility), providing a more accurate biological value. Whey protein isolate currently leads the index with a DIAAS of ~1.09, followed by soy at ~0.90. The 'Anabolic Window' has been refined into the 'Leucine Threshold' concept. For muscle protein synthesis (MPS), approximately 2.5g of Leucine is required to activate the mechanistic target of rapamycin complex 1 (mTORC1) pathway.
+
+However, 2024 research published in Nature Metabolism (Zhang et al.) introduced a critical caveat: the 'atherogenic threshold.' While 25g of protein triggers muscle growth, consuming protein boluses exceeding 22% of total energy (or ~25g in a single sitting) elevates plasma leucine to a point where it activates mTOR in macrophages. This activation suppresses mitophagy (cellular cleanup), leading to the formation of foam cells and accelerating arterial plaque (atherosclerosis). This suggests that the 'more is better' approach to protein may carry cardiovascular risks.
+
+Carbohydrate metabolism is governed by glycogen storage capacity: ~100g in the liver for blood glucose maintenance and ~400–600g in skeletal muscle for local ATP production via glycolysis. Lipids, providing 9 kcal/g, undergo beta-oxidation in the mitochondria. The Acceptable Macronutrient Distribution Range (AMDR) maintains a balance of 45–65% CHO, 20–35% Fat, and 10–35% Protein. However, for metabolic flexibility—the ability to switch between substrate oxidation—dietary timing and the avoidance of chronic hyperinsulinemia are paramount.
