@@ -14,7 +14,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 
 # --- CONFIGURATION ---
-CHROMA_PATH = "chroma_db_v10"
+CHROMA_PATH = "chroma_db_v12"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # --- CORE KNOWLEDGE: MODULES AND RECIPES ---
@@ -133,26 +133,30 @@ elif page == "🍲 Mood-Prep Kitchen":
             with st.spinner("Finding recipe match..."):
                 try:
                     all_results = db.similarity_search_with_relevance_scores(
-                        " ".join(symptoms), k=20
+                        " ".join(symptoms), k=50
                     )
-                    results = [(doc, score) for doc, score in all_results
+                    recipes = [(doc, score) for doc, score in all_results
                                if doc.metadata.get("source") == "recipe"][:2]
-                    for doc, score in results:
-                        title = doc.metadata.get('title')
-                        content = doc.page_content
-                        parts = content.split('\n')
-                        ingredients = parts[0] if len(parts) > 0 else ""
-                        instructions = parts[1] if len(parts) > 1 else ""
-                        mechanism = parts[2] if len(parts) > 2 else ""
 
-                        st.markdown(f"""
-                            <div class="result-card">
-                                <h2 style="margin-top:0;">{title}</h2>
-                                <div style="margin-bottom:15px;">{ingredients}</div>
-                                <div style="font-style:italic;">{instructions}</div>
-                                <div class="mechanism-box"><b>🔬 Scientific Why:</b><br>{mechanism}</div>
-                            </div>
-                        """, unsafe_allow_html=True)
+                    if not recipes:
+                        st.warning("No recipes found. Try clicking 'Reset Database' in the sidebar and refresh.")
+                    else:
+                        for doc, score in recipes:
+                            title = doc.metadata.get('title')
+                            content = doc.page_content
+                            parts = content.split('\n')
+                            ingredients = parts[0] if len(parts) > 0 else ""
+                            instructions = parts[1] if len(parts) > 1 else ""
+                            mechanism = parts[2] if len(parts) > 2 else ""
+
+                            st.markdown(f"""
+                                <div class="result-card">
+                                    <h2 style="margin-top:0;">{title}</h2>
+                                    <div style="margin-bottom:15px;">{ingredients}</div>
+                                    <div style="font-style:italic;">{instructions}</div>
+                                    <div class="mechanism-box"><b>🔬 Scientific Why:</b><br>{mechanism}</div>
+                                </div>
+                            """, unsafe_allow_html=True)
                 except Exception as e:
                     st.error(f"Recipe search error: {e}")
 
