@@ -1,20 +1,20 @@
-# Temeljna načela prehrane za obdobje 2025–2030
+# Core Nutrition Principles for 2025–2030
 
-Najnovejše smernice zdravstvenih organov, vključno s Svetovno zdravstveno organizacijo (WHO) in prehranskimi smernicami za Američane 2025–2030, poudarjajo temeljit premik k celovitim, minimalno predelanim živilom.
+The latest guidance from health authorities, including the World Health Organization (WHO) and the 2025–2030 Dietary Guidelines for Americans (DGAs), emphasizes a fundamental shift toward whole, minimally processed foods.
 
-## Ključna načela
+## Key Principles
 
-### 1. Prednostno uživajte celovita živila
-Osredotočite se na zelenjavo, sadje, polnozrnate žitarice in stročnice (fižol, leča). Ta živila naj bodo osnova vsake prehrane. Celovita živila so naravno bogata z bistvenimi vitamini, minerali in vlakninami, ki se med predelavo pogosto izgubijo.
+### 1. Prioritize Whole Foods
+Focus on vegetables, fruits, whole grains, and pulses (beans, lentils). These should form the foundation of every diet. Whole foods are naturally rich in essential vitamins, minerals, and fiber that are often stripped away during processing.
 
-### 2. Omejite ultra-predelana živila (UPF)
-Uradne smernice prvič izrecno priporočajo izogibanje ultra-predelanim prigrizkom, sladkanim pijačam in pripravljenim obrokom. Ta živila so pogosto bogata z natrijem, nezdravimi maščobami in umetnimi aditivi.
+### 2. Limit Ultra-Processed Foods (UPFs)
+For the first time, official guidelines explicitly recommend avoiding ultra-processed snacks, sugar-sweetened beverages, and ready-to-eat meals. These foods are often high in sodium, unhealthy fats, and artificial additives.
 
-### 3. Stroge omejitve sladkorja
-Nove priporočene vrednosti predlagajo, da nobeden obrok ne bi smel vsebovati več kot 10 gramov dodanega sladkorja. Visok vnos sladkorja je povezan z različnimi kroničnimi boleznimi, vključno z diabetesom tipa 2 in boleznimi srca.
+### 3. Strict Sugar Limits
+New recommendations suggest that no single meal should contain more than 10 grams of added sugar. High sugar intake is linked to various chronic health conditions, including type 2 diabetes and heart disease.
 
-### 4. Raznolikost za zdravje črevesja
-Vse večji poudarek je na črevesnem mikrobiomu. Strokovnjaki zdaj priporočajo uživanje vsaj 30 različnih rastlinskih vrst na teden. Ta raznolikost podpira zdravo in odporno črevesno okolje.
+### 4. Diversity for Gut Health
+There is a growing emphasis on the gut microbiome. Experts now recommend consuming at least 30 different plant species per week. This diversity supports a healthy and resilient gut environment.
 
-### 5. Zavestna hidracija
-Prizadevajte si za 6–8 kozarcev vode na dan. Bodite previdni pri 'zdravih' pijačah ali športnih napitkih, saj so pogosto visoko predelani ali vsebujejo znatne količine skritih sladkorjev.
+### 5. Mindful Hydration
+Aim for 6–8 glasses of water daily. Be cautious of "health" drinks or sports drinks, as they are often highly processed or contain significant amounts of hidden sugars.

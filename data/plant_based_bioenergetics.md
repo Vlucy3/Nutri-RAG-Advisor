@@ -1,9 +1,9 @@
-# Bioenergetika rastlinske prehrane in pomanjkljivosti
-**Kategorija:** Veganska prehrana
-**Leto:** 2025
+# Plant-Based Bioenergetics and Deficiencies
+**Category:** Vegan
+**Year:** 2025
 
-Rastlinska prehrana (veganska/vegetarijanska) zagotavlja znatno zaščito pred ishemično boleznijo srca, a zahteva strateško načrtovanje, da se izognemo 'tihim' pomanjkljivostim. Vitamin B12 (kobalamin) je najpomembnejši; v rastlinskih živilih ga ni. Pomanjkanje povzroča povišane ravni homocisteina (kardiovaskularno tveganje) in nepopravljive nevrološke okvare. Konsenz za leto 2025 priporoča 2,4 mcg/dan, po možnosti prek sublingvalnega cianokobalamina za boljšo absorpcijo.
+Plant-based diets (Vegan/Vegetarian) offer significant protection against ischemic heart disease but require strategic planning to avoid 'silent' deficiencies. Vitamin B12 (Cobalamin) is the most critical; it is absent in plant foods. Deficiency leads to elevated homocysteine levels (a cardiovascular risk) and irreversible neurological damage. The 2025 consensus recommends 2.4 mcg/day, preferably via sublingual cyanocobalamin for better absorption.
 
-Omega-3 maščobne kisline predstavljajo še en izziv. Medtem ko rastline ponujajo alfa-linolensko kislino (ALA), je stopnja pretvorbe v bioaktivne oblike EPA in DHA izjemno nizka (<5 % za EPA in <0,5 % za DHA). Veganom svetujemo uporabo prehranskih dodatkov DHA na osnovi alg, da zaobidejo ta presnovna ozko grlo.
+Omega-3 fatty acids present another challenge. While plants offer Alpha-Linolenic Acid (ALA), the conversion rate to the bioactive forms EPA and DHA is extremely low (<5% for EPA and <0.5% for DHA). Vegans are encouraged to use Algae-based DHA supplements to bypass this metabolic bottleneck.
 
-'Popolnost' aminokislin je pogosto napačno razumljena. Medtem ko vse rastline vsebujejo vseh 20 aminokislin, so nekatere (kot je lizin v žitaricah ali metionin v stročnicah) 'omejitvene.' Ocena aminokislin, popravljena za prebavljivost beljakovin (PDCAAS) za pšenico, znaša ~0,40, v primerjavi z 1,0 za jajce. Kombiniranje komplementarnih beljakovin (npr. fižol in riž) ostaja veljavna strategija, čeprav nedavni podatki iz leta 2024 kažejo, da je kombinirani pristop pri posameznih obrokih nepotreben, dokler je skupni dnevni vnos beljakovin zadosten in raznolik.
+Amino acid 'completeness' is often misunderstood. While all plants contain all 20 amino acids, certain ones (like Lysine in grains or Methionine in legumes) are 'limiting.' The Protein Digestibility Corrected Amino Acid Score (PDCAAS) for wheat is ~0.40, compared to 1.0 for egg. Combining complementary proteins (e.g., beans and rice) remains a valid strategy, though recent 2024 data suggests that as long as the total daily protein intake is sufficient and diverse, meal-by-meal 'combining' is unnecessary.

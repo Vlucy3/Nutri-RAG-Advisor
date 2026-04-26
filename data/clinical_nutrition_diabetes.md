@@ -1,9 +1,9 @@
-# Klinična prehrana: Nadzor glikemije in diabetes
-**Kategorija:** Klinična prehrana
-**Leto:** 2024
+# Clinical Nutrition: Glycemic Control and Diabetes
+**Category:** Clinical
+**Year:** 2024
 
-Medicinska prehranska terapija za diabetes tipa 2 (T2D) se je oddaljila od restriktivnih diet 'brez sladkorja' in se usmerila k upravljanju 'glikemičnega obremenjevanja' (GL). Medtem ko glikemični indeks (GI) meri kakovost ogljikovih hidratov, GL upošteva tudi količino (GL = GI × grami OH / 100). GL < 10 pomeni nizek vpliv. Upravljanje poodbornih konic glukoze je ključno za zniževanje ravni HbA1c (povprečna raven glukoze v krvi v 3 mesecih).
+Medical Nutrition Therapy for Type 2 Diabetes (T2D) has moved away from restrictive 'no-sugar' diets toward 'Glycemic Load' (GL) management. While the Glycemic Index (GI) measures the quality of carbohydrates, GL accounts for quantity (GL = GI x grams of CHO / 100). A GL < 10 is low-impact. Managing postprandial glucose spikes is critical to reducing HbA1c levels (average blood glucose over 3 months).
 
-Študija PREDIMED (Primarna preventiva kardiovaskularnih bolezni z mediteransko prehrano) ostaja dokončni dokaz za obvladovanje zapletov, povezanih s T2D. Prehrana, bogata z enkrat nenasičenimi maščobnimi kislinami (MUFA) iz ekstra deviškega olivnega olja in omega-3 iz orehov, izboljšuje občutljivost za insulin. Vnos vlaknin je prav tako bistvenega pomena; pregled iz leta 2024 je pokazal, da se za vsakih 10 g povečanja vnosa vlaknin tveganje za T2D zmanjša za 15 % zaradi zapoznelega praznjenja želodca in počasnejše absorpcije glukoze.
+The PREDIMED study (Primary Prevention of Cardiovascular Disease with a Mediterranean Diet) remains the definitive evidence for managing T2D-related complications. A diet rich in Monounsaturated Fatty Acids (MUFAs) from extra virgin olive oil and Omega-3s from walnuts improves insulin sensitivity. Fiber intake is also paramount; a 2024 review showed that for every 10g increase in fiber, T2D risk decreases by 15% due to delayed gastric emptying and slower glucose absorption.
 
-Omejitev natrija (<2.300 mg/dan) je ključna, saj 70 % bolnikov s T2D trpi tudi za hipertenzijo. 'Metoda krožnika' – 50 % neškrobne zelenjave, 25 % pustanih beljakovin in 25 % kompleksnih ogljikovih hidratov – je trenutno klinično priporočilo za nadzor porcij brez psihološkega bremena štetja kalorij.
+Sodium restriction (<2,300 mg/day) is vital, as 70% of T2D patients also suffer from hypertension. The 'Plate Method'—50% non-starchy vegetables, 25% lean protein, and 25% complex carbohydrates—is the current clinical recommendation for portion control without the psychological burden of calorie counting.

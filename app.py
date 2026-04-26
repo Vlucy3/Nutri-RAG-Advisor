@@ -14,30 +14,30 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 
 # --- CONFIGURATION ---
-CHROMA_PATH = "chroma_db_v9"
-EMBEDDING_MODEL = "intfloat/multilingual-e5-small"
+CHROMA_PATH = "chroma_db_v10"
+EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
-# --- JEDRO ZNANJA: MODULI IN RECEPTI ---
+# --- CORE KNOWLEDGE: MODULES AND RECIPES ---
 NUTRITION_DATA = [
-    {"title": "Infradiani ritem", "content": "Usklajevanje 28-dnevnega cikla ženske: folikularna faza (visoka občutljivost za insulin), lutealna faza (višji BMH +300 kcal)."},
-    {"title": "Upravljanje kortizola", "content": "Obvladovanje poklicnega stresa z magnezijem in omega-3 maščobnimi kislinami za preprečevanje visceralne maščobe."},
-    {"title": "Protokol za PCOS", "content": "Razmerje mio-inozitola 40:1 za obnovitev ovulacije in zmanjšanje androgenov, ki jih poganja hiperinzulinemija."},
-    {"title": "Obramba pred endometriozo", "content": "Integracija prehrane MIND-DASH za zmanjšanje prostaglandinov PGE2 in medeničnega vnetja."},
-    {"title": "Presnova estrogena", "content": "Vlakna (35 g) in I3C (križnice) za preprečevanje prevlade estrogena in napenjanja."},
-    {"title": "Solata za stabilnost serotonina (slabo razpoloženje / PMS)", "content": "SESTAVINE: 150 g pečene purice, 1/2 skodelice kinoje, 1 skodelica špinače, 2 žlici orehov. \nNAVODILA: Pomešajte pečeno purico s kuhano kinojo in špinačo. Potresite z orehi. \nMEHANIZEM: Triptofan (purica) + kompleksni ogljikovi hidrati (kinoja) = dvig serotonina za padce razpoloženja v lutealni fazi."},
-    {"title": "Skleda za dopamin in fokus (megla v glavi)", "content": "SESTAVINE: 150 g piščanca/tempeha, 1/2 skodelice divjega riža, 1 skodelica brokolija, 2 žlici bučnih semen. \nNAVODILA: Poparjte brokoli. Nanizajte divji riž, beljakovine in semena. \nMEHANIZEM: Tirozin (beljakovine) + cink (semena) = sinteza dopamina za visoko storilnost pri delu."},
-    {"title": "Enolončnica za umiritev kortizola (tesnoba / stres)", "content": "SESTAVINE: 1 skodelica rdeče leče, 1 čajna žlička kurkume, 1 pločevinka kokosovega mleka, 2 skodelici ohrovta. \nNAVODILA: Kuhajte lečo in kurkumo v kokosovem mleku. Ohrovt dodajte na koncu. \nMEHANIZEM: Protivnetni kurkumin + vlakna leče = stabilizacija osi HPA in nadzor glukoze."},
-    {"title": "Pražena zelenjava za izločanje estrogena (napenjanje)", "content": "SESTAVINE: 2 skodelici brokolija/cvetače, 150 g tofuja, 1 žlica mletega lanenega semena. \nNAVODILA: Popražite zelenjavo in tofu. Na koncu potresite z lanenim semenom brez toplotne obdelave. \nMEHANIZEM: I3C (križnice) + lignani (lan) = učinkovito izločanje hormonov za zmanjšanje napenjanja."},
-    {"title": "Frittata za energijo in vzdržljivost (utrujenost)", "content": "SESTAVINE: 3 omega-3 jajca, 50 g dimljenega lososa, 5 špargeljevih poganjkov. \nNAVODILA: Stepite jajca čez nasekljane špargle. Pecite 12 minut. Postrežite z lososom. \nMEHANIZEM: Holin (jajca) + EPA/DHA (losos) = izboljšan spomin in mitohondrijska učinkovitost ATP."},
-    {"title": "Fermentirana posodica za črevesje in možgane (socialna tesnoba)", "content": "SESTAVINE: 1/2 skodelice kimčija, 1/2 skodelice rjavega riža, 100 g miso lososa, morske alge nori. \nNAVODILA: Nanizajte riž, kimči in lososa v posodico. Jejte z nori algami. \nMEHANIZEM: Probiotiki (kimči) = obnovitev črevesne bariere, zmanjšanje nevrovnetja in razdražljivosti."},
-    {"title": "Magnezijeva peka za spanec (nespečnost)", "content": "SESTAVINE: 1/2 skodelice ovsa, 1 žlica temnega kakava (>70 %), 1 banana, 1 žlica mandljevega masla. \nNAVODILA: Zdrobite banano, pomešajte z ovsom in kakavom. Pecite 15 minut. \nMEHANIZEM: Magnezij (kakav) + B6 (banana) = tvorba melatonina za globok spanec."},
-    {"title": "Inzulinsko varni ovseni kosmiči za PCOS (hrepenenje po sladkem)", "content": "SESTAVINE: 1/2 skodelice celoovesnih kosmičev, 1 čajna žlička cimeta, 1/2 skodelice jagodičja, 1 žlica čia semen. \nNAVODILA: Skuhajte ovsene kosmiče. Vmešajte cimet in čia semena. Potresite z jagodičjem. \nMEHANIZEM: Cimet + vlakna (čia) = zblažen porast glukoze, zmanjšanje akne, ki jih sproža IGF-1."},
-    {"title": "Protivnetni kari (medenične bolečine)", "content": "SESTAVINE: 1 skodelica čičerike, 2 žlici ingverja, 1 sladki krompir, 1 skodelica špinače. \nNAVODILA: Popražite krompir/čičeriko z začimbami za kari in svežim ingverjem. Špinačo dodajte na koncu. \nMEHANIZEM: Ingver (zaviralec COX) = zmanjšanje medeničnih krčev, ki jih povzročajo prostaglandini."},
-    {"title": "Poke skleda za fokus (popoldanska utrujenost)", "content": "SESTAVINE: 120 g tune, 1/2 skodelice edamame, 1 skodelica kumare, 2 redkvice. \nNAVODILA: Združite sestavine na zeleni solati. Polijte z riževim kisom. \nMEHANIZEM: Jod (tuna) + hidracija (kumara) = podpora ščitnici in celična hidracija za odpravo megle v glavi."}
+    {"title": "Infradian Rhythm", "content": "Women's 28-day cycle syncing: Follicular (high insulin sensitivity), Luteal (higher BMR +300kcal)."},
+    {"title": "Cortisol Management", "content": "Professional stress mitigation via Magnesium and Omega-3s to prevent visceral fat storage."},
+    {"title": "PCOS Protocol", "content": "40:1 Myo-inositol ratio to restore ovulation and reduce hyperinsulinemia-driven androgens."},
+    {"title": "Endometriosis Defense", "content": "MIND-DASH diet integration to reduce PGE2 prostaglandins and pelvic inflammation."},
+    {"title": "Estrogen Metabolism", "content": "Fiber (35g) and I3C (Cruciferous) to prevent estrogen dominance and bloating."},
+    {"title": "The Serotonin Stability Salad (Low Mood / PMS)", "content": "INGREDIENTS: 150g Roasted Turkey, 1/2 cup Quinoa, 1 cup Spinach, 2 tbsp Walnuts. \nINSTRUCTIONS: Mix roasted turkey with cooked quinoa and spinach. Top with walnuts. \nMECHANISM: Tryptophan (Turkey) + Complex Carbs (Quinoa) = Serotonin boost for the Luteal phase mood dips."},
+    {"title": "The Dopamine Focus Bowl (Brain Fog / Focus)", "content": "INGREDIENTS: 150g Chicken/Tempeh, 1/2 cup Wild Rice, 1 cup Broccoli, 2 tbsp Pumpkin Seeds. \nINSTRUCTIONS: Steam broccoli. Layer wild rice, protein, and seeds. \nMECHANISM: Tyrosine (Protein) + Zinc (Seeds) = Dopamine synthesis for high-performance workday focus."},
+    {"title": "The Cortisol-Quencher Stew (Anxiety / Stress)", "content": "INGREDIENTS: 1 cup Red Lentils, 1 tsp Turmeric, 1 can Coconut Milk, 2 cups Kale. \nINSTRUCTIONS: Simmer lentils and turmeric in coconut milk. Add kale last. \nMECHANISM: Curcumin anti-inflammatory + Lentil fiber = HPA-axis stabilization and glucose control."},
+    {"title": "The Estrogen-Clearance Stir-fry (Bloating / Periods)", "content": "INGREDIENTS: 2 cups Broccoli/Cauliflower, 150g Tofu, 1 tbsp Ground Flaxseed. \nINSTRUCTIONS: Stir-fry veg and tofu. Sprinkle raw flaxseed over the top after heat. \nMECHANISM: I3C (Cruciferous) + Lignans (Flax) = Efficient hormone excretion to reduce bloating."},
+    {"title": "The Energy-Resilience Frittata (Fatigue)", "content": "INGREDIENTS: 3 Omega-3 Eggs, 50g Smoked Salmon, 5 Asparagus spears. \nINSTRUCTIONS: Whisk eggs over chopped asparagus. Bake for 12 mins. Top with salmon. \nMECHANISM: Choline (Eggs) + EPA/DHA (Salmon) = Enhanced memory and mitochondrial ATP efficiency."},
+    {"title": "The Gut-Brain Ferment Jar (Social Anxiety)", "content": "INGREDIENTS: 1/2 cup Kimchi, 1/2 cup Brown Rice, 100g Miso Salmon, Seaweed nori. \nINSTRUCTIONS: Layer rice, kimchi, and salmon in a jar. Eat with nori. \nMECHANISM: Probiotics (Kimchi) = Repaired gut barrier, reducing neuro-inflammation and irritability."},
+    {"title": "The Magnesium Sleep Bake (Insomnia)", "content": "INGREDIENTS: 1/2 cup Oats, 1 tbsp Dark Cacao (>70%), 1 Banana, 1 tbsp Almond Butter. \nINSTRUCTIONS: Mash banana, mix with oats and cacao. Bake for 15 mins. \nMECHANISM: Magnesium (Cacao) + B6 (Banana) = Melatonin production for deep recovery sleep."},
+    {"title": "The PCOS Insulin-Safe Oats (Sugar Cravings / Acne)", "content": "INGREDIENTS: 1/2 cup Steel-cut Oats, 1 tsp Cinnamon, 1/2 cup Berries, 1 tbsp Chia Seeds. \nINSTRUCTIONS: Cook oats. Stir in cinnamon and chia. Top with berries. \nMECHANISM: Cinnamon + Fiber (Chia) = Blunted glucose spike, reducing IGF-1 acne triggers."},
+    {"title": "The Anti-Inflammatory Curry (Pelvic Pain)", "content": "INGREDIENTS: 1 cup Chickpeas, 2 tbsp Ginger, 1 Sweet Potato, 1 cup Spinach. \nINSTRUCTIONS: Sauté potato/chickpeas with curry spices and fresh ginger. Add spinach last. \nMECHANISM: Ginger (COX-inhibitor) = Reduced prostaglandin-induced pelvic cramping."},
+    {"title": "The Focus-Fuel Poke Bowl (Mid-day Slump)", "content": "INGREDIENTS: 120g Tuna, 1/2 cup Edamame, 1 cup Cucumber, 2 Radishes. \nINSTRUCTIONS: Combine ingredients over greens. Dress with rice vinegar. \nMECHANISM: Iodine (Tuna) + Hydration (Cucumber) = Thyroid support and cellular hydration to fix brain fog."}
 ]
 
 # --- PAGE SETUP ---
-st.set_page_config(page_title="Her-RAG Svetovalka 2026", page_icon="🧘‍♀️", layout="wide")
+st.set_page_config(page_title="Her-RAG Advisor 2026", page_icon="🧘‍♀️", layout="wide")
 
 # --- CUSTOM CSS ---
 st.markdown("""
@@ -83,30 +83,30 @@ def get_vector_db():
 def clear_db():
     st.cache_resource.clear()
     if os.path.exists(CHROMA_PATH):
-        try: shutil.rmtree(CHROMA_PATH); st.success("Baza podatkov ponastavljena!")
-        except: st.error("Znova zaženite aplikacijo za brisanje baze.")
+        try: shutil.rmtree(CHROMA_PATH); st.success("Database Reset!")
+        except: st.error("Restart app to clear database.")
 
 # --- SIDEBAR ---
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/3997/3997818.png", width=80)
     st.title("Her-RAG v2.5")
-    page = st.radio("Meni", ["🏠 Domov", "🧠 Hormonsko iskanje", "🍲 Kuhinja za razpoloženje", "📊 Statistika"])
-    if st.button("🗑️ Ponastavi bazo"): clear_db()
+    page = st.radio("Menu", ["🏠 Home", "🧠 Hormonal Search", "🍲 Mood-Prep Kitchen", "📊 Stats"])
+    if st.button("🗑️ Reset Database"): clear_db()
 
 # --- PAGES ---
-SOURCE_LABELS = {"recipe": "Recept", "module": "Modul", "research": "Raziskava"}
+SOURCE_LABELS = {"recipe": "Recipe", "module": "Module", "research": "Research"}
 
-if page == "🏠 Domov":
-    st.title("Dobrodošli v Her-RAG 2026")
-    st.markdown("Natančna prehrana in vedenjska arhitektura razpoloženja za ženske.")
+if page == "🏠 Home":
+    st.title("Welcome to Her-RAG 2026")
+    st.markdown("Precision Nutrition & Behavioral Mood-Architecture for women.")
 
-elif page == "🧠 Hormonsko iskanje":
-    st.title("🧠 Endokrini repozitorij")
+elif page == "🧠 Hormonal Search":
+    st.title("🧠 Endocrine Repository")
     db = get_vector_db()
-    query = st.text_input("Iskanje hormonske znanosti:")
+    query = st.text_input("Search for hormonal science:")
     if query:
         if db is None:
-            st.error("Baza podatkov ni na voljo. Ponastavite in poskusite znova.")
+            st.error("Database unavailable. Please reset and try again.")
         else:
             try:
                 results = db.similarity_search_with_relevance_scores(query, k=3)
@@ -114,23 +114,23 @@ elif page == "🧠 Hormonsko iskanje":
                     relevance = int(score * 100)
                     source_label = SOURCE_LABELS.get(doc.metadata.get("source", ""), "")
                     st.markdown(f"""<div class="result-card">
-                        <div style="float:right;color:#95d5b2;font-size:0.9rem;">Ujemanje: {relevance}% &middot; {source_label}</div>
+                        <div style="float:right;color:#95d5b2;font-size:0.9rem;">Match: {relevance}% &middot; {source_label}</div>
                         <h3>{doc.metadata.get('title')}</h3>
                         <p>{doc.page_content}</p>
                     </div>""", unsafe_allow_html=True)
             except Exception as e:
-                st.error(f"Napaka iskanja: {e}")
+                st.error(f"Search error: {e}")
 
-elif page == "🍲 Kuhinja za razpoloženje":
-    st.title("🍲 Kuhinja za razpoloženje")
-    symptoms = st.multiselect("Danes se počutim:", ["Utrujenost", "Tesnoba", "Megla v glavi", "Napenjanje", "Slabo razpoloženje", "Hrepenenje po sladkem", "Nespečnost", "Medenične bolečine"])
+elif page == "🍲 Mood-Prep Kitchen":
+    st.title("🍲 Mood-Prep Kitchen")
+    symptoms = st.multiselect("Today I feel:", ["Fatigue", "Anxiety", "Brain Fog", "Bloating", "Low Mood", "Sugar Cravings", "Insomnia", "Pelvic Pain"])
 
     if symptoms:
         db = get_vector_db()
         if db is None:
-            st.error("Baza podatkov ni na voljo. Ponastavite in poskusite znova.")
+            st.error("Database unavailable. Please reset and try again.")
         else:
-            with st.spinner("Iščem recept..."):
+            with st.spinner("Finding recipe match..."):
                 try:
                     results = db.similarity_search_with_relevance_scores(
                         " ".join(symptoms), k=2, filter={"source": "recipe"}
@@ -148,63 +148,63 @@ elif page == "🍲 Kuhinja za razpoloženje":
                                 <h2 style="margin-top:0;">{title}</h2>
                                 <div style="margin-bottom:15px;">{ingredients}</div>
                                 <div style="font-style:italic;">{instructions}</div>
-                                <div class="mechanism-box"><b>🔬 Znanstveno ozadje:</b><br>{mechanism}</div>
+                                <div class="mechanism-box"><b>🔬 Scientific Why:</b><br>{mechanism}</div>
                             </div>
                         """, unsafe_allow_html=True)
                 except Exception as e:
-                    st.error(f"Napaka iskanja recepta: {e}")
+                    st.error(f"Recipe search error: {e}")
 
-elif page == "📊 Statistika":
+elif page == "📊 Stats":
     md_files = sorted([f for f in os.listdir("data") if f.endswith(".md")]) if os.path.exists("data") else []
-    recipe_count = sum(1 for d in NUTRITION_DATA if "SESTAVINE:" in d["content"])
+    recipe_count = sum(1 for d in NUTRITION_DATA if "INGREDIENTS:" in d["content"])
     module_count = len(NUTRITION_DATA) - recipe_count
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("Znanstveni moduli", module_count)
-    col2.metric("Recepti", recipe_count)
-    col3.metric("Raziskovalni dokumenti", len(md_files))
+    col1.metric("Science Modules", module_count)
+    col2.metric("Recipes", recipe_count)
+    col3.metric("Research Documents", len(md_files))
 
     st.markdown("---")
     col_left, col_right = st.columns(2)
     with col_left:
-        st.subheader("Znanstveni moduli")
+        st.subheader("Science Modules")
         for d in NUTRITION_DATA:
-            if "SESTAVINE:" not in d["content"]:
+            if "INGREDIENTS:" not in d["content"]:
                 st.write(f"🔬 {d['title']}")
-        st.subheader("Recepti")
+        st.subheader("Recipes")
         for d in NUTRITION_DATA:
-            if "SESTAVINE:" in d["content"]:
+            if "INGREDIENTS:" in d["content"]:
                 st.write(f"🍳 {d['title']}")
     with col_right:
-        st.subheader("Raziskovalni dokumenti")
+        st.subheader("Research Documents")
         for f in md_files:
             st.write(f"📄 {f.replace('.md', '').replace('_', ' ').title()}")
 
     st.markdown("---")
-    st.subheader("🧪 Primerjava strategij deljenja besedila")
-    st.write("Kako se isti dokument razdeli pri dveh različnih strategijah:")
+    st.subheader("🧪 Chunking Strategy Comparison")
+    st.write("How the same document splits under two different strategies:")
 
     sample_path = os.path.join("data", "menstrual_cycle_nutrition.md")
     if os.path.exists(sample_path):
         with open(sample_path, "r", encoding="utf-8") as f:
             sample_text = f.read()
-        sample_doc = [Document(page_content=sample_text, metadata={"title": "Prehrana menstrualnega cikla"})]
+        sample_doc = [Document(page_content=sample_text, metadata={"title": "Menstrual Cycle Nutrition"})]
 
         splitter_a = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
         splitter_b = RecursiveCharacterTextSplitter(chunk_size=150, chunk_overlap=20)
         chunks_a = splitter_a.split_documents(sample_doc)
         chunks_b = splitter_b.split_documents(sample_doc)
 
-        st.caption(f"Vzorec: **Prehrana menstrualnega cikla** — {len(sample_text)} znakov skupaj")
+        st.caption(f"Sample: **Menstrual Cycle Nutrition** — {len(sample_text)} total characters")
 
         col_a, col_b = st.columns(2)
         with col_a:
-            st.markdown(f"**Strategija A: chunk_size=600, overlap=100** ✅ *uporabljena v tej aplikaciji*")
-            st.markdown(f"*→ {len(chunks_a)} kos(ov) besedila*")
+            st.markdown(f"**Strategy A: chunk_size=600, overlap=100** ✅ *used in this app*")
+            st.markdown(f"*→ {len(chunks_a)} chunk(s) produced*")
             for i, c in enumerate(chunks_a):
-                st.text_area(f"Kos {i+1} ({len(c.page_content)} znakov)", c.page_content, height=160, key=f"ca_{i}")
+                st.text_area(f"Chunk {i+1} ({len(c.page_content)} chars)", c.page_content, height=160, key=f"ca_{i}")
         with col_b:
-            st.markdown(f"**Strategija B: chunk_size=150, overlap=20** — mikro-kosi")
-            st.markdown(f"*→ {len(chunks_b)} kos(ov) besedila*")
+            st.markdown(f"**Strategy B: chunk_size=150, overlap=20** — micro-chunks")
+            st.markdown(f"*→ {len(chunks_b)} chunk(s) produced*")
             for i, c in enumerate(chunks_b):
-                st.text_area(f"Kos {i+1} ({len(c.page_content)} znakov)", c.page_content, height=160, key=f"cb_{i}")
+                st.text_area(f"Chunk {i+1} ({len(c.page_content)} chars)", c.page_content, height=160, key=f"cb_{i}")

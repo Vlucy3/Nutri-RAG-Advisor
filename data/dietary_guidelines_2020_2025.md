@@ -1,12 +1,12 @@
-# Prehranske smernice za Američane 2020–2025 (DGA)
-**Kategorija:** Javno zdravje
-**Leto:** 2025
+# 2020-2025 Dietary Guidelines for Americans (DGA)
+**Category:** Public Health
+**Year:** 2025
 
-Prehranske smernice za Američane 2020–2025 (DGA) predstavljajo trenutni zvezni standard za zdravo prehranjevanje. Osrednja filozofija je 'Naredi vsak zalogaj šteti.' Tri glavna priporočila za omejitev so:
-1. Dodani sladkorji: <10 % skupnih dnevnih kalorij (za zmanjšanje tveganja za debelost in T2D).
-2. Nasičene maščobe: <10 % skupnih dnevnih kalorij (za uravnavanje ravni LDL holesterola).
-3. Natrij: <2.300 mg na dan (za preprečevanje hipertenzije).
+The 2020-2025 Dietary Guidelines for Americans (DGA) represent the current federal standard for healthy eating. The core philosophy is 'Make Every Bite Count.' The three major limit-based recommendations are:
+1. Added Sugars: <10% of total daily calories (to reduce the risk of obesity and T2D).
+2. Saturated Fats: <10% of total daily calories (to manage LDL cholesterol levels).
+3. Sodium: <2,300 mg per day (to prevent hypertension).
 
-Pomembna novost v trenutni različici je osredotočenost na 'Prvih 1000 dni.' DGA zdaj podaja posebna priporočila za dojenčke in malčke ter zagovarja, da otroci, mlajši od dveh let, ne smejo uživati dodanega sladkorja. Poudarja tudi koncept 'hranilne gostote': izbiro živil, ki zagotavljajo visoke ravni vitaminov in mineralov glede na vsebnost kalorij (npr. ohrovt v primerjavi z ledeno solato).
+A significant addition in the current version is the focus on the 'First 1000 Days.' The DGA now provides specific recommendations for infants and toddlers, advocating for no added sugars for children under age two. It also highlights the 'Nutrient Density' concept: choosing foods that provide high levels of vitamins and minerals relative to their caloric cost (e.g., kale vs. iceberg lettuce).
 
-Uspeh javnega zdravja se meri z indeksom zdravega prehranjevanja (HEI). Trenutno povprečni HEI za Američane znaša 58/100, kar kaže na znatno 'prehransko vrzel' pri polnozrnatih žitaricah, listnati zelenjavi in stročnicah. Posodobitev za leto 2025 (trenutno v pripravi) bo predvidoma še bolj poudarila okoljsko trajnost prehranskih izbir poleg zdravstvenih rezultatov.
+Public health success is measured via the Healthy Eating Index (HEI). Currently, the average American HEI score is 58/100, indicating a significant 'nutrition gap' in whole grains, greens, and beans. The 2025 update (currently in drafting) is expected to further emphasize the environmental sustainability of food choices alongside health outcomes.

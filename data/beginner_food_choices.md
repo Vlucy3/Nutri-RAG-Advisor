@@ -1,31 +1,31 @@
-# Začetniški vodič po zdravih izbirah hrane
+# Beginner's Guide to Healthy Food Choices
 
-Sestavljanje zdravega krožnika ni nujno zapleteno. Uporabite ta vodič za izbiro hranilno bogatih možnosti v vseh kategorijah živil.
+Building a healthy plate doesn't have to be complicated. Use this guide to choose nutrient-dense options across all food categories.
 
-## Priporočene možnosti
+## Recommended Options
 
-### Beljakovine
-Beljakovine so gradniki telesa. Izberite pustane in rastlinske vire:
-*   Pustana perutnina (piščanec, purica)
-*   Ribe in morski sadeži
-*   Jajca
-*   Fižol in leča
-*   Tofu in tempeh
+### Proteins
+Proteins are the building blocks of the body. Choose lean and plant-based options:
+*   Lean poultry (chicken, turkey)
+*   Fish and seafood
+*   Eggs
+*   Beans and lentils
+*   Tofu and tempeh
 
-### Ogljikovi hidrati
-Osredotočite se na kompleksne ogljikove hidrate, ki zagotavljajo trajno energijo in vlakna:
-*   Oves in ječmen
-*   Rjavi riž in kvinoja
-*   Sladki krompir in druga škrobnata zelenjava
-*   Polnozrnati kruh in testenine
+### Carbohydrates
+Focus on complex carbohydrates that provide sustained energy and fiber:
+*   Oats and barley
+*   Brown rice and quinoa
+*   Sweet potatoes and other starchy vegetables
+*   Whole-grain bread and pasta
 
-### Zdrave maščobe
-Maščobe so bistvene za zdravje možganov in nastajanje hormonov:
-*   Avokado
-*   Oreščki (orehi, mandlji) in semena (čia, lan)
-*   Ekstra deviško olivno olje
-*   Mastne ribe (losos, skuša, sardine)
+### Healthy Fats
+Fats are essential for brain health and hormone production:
+*   Avocados
+*   Nuts (walnuts, almonds) and seeds (chia, flax)
+*   Extra virgin olive oil
+*   Fatty fish (salmon, mackerel, sardines)
 
-### Zelenjava in sadje
-Prizadevajte si za vsaj 400 g (pribl. 5 porcij) sadja in zelenjave na dan.
-*   **Nasvet:** Zamrznjena in konzervirana živila so odlična, cenovno dostopna alternativa svežim, pod pogojem, da nimajo dodanega sladkorja ali soli.
+### Vegetables and Fruits
+Aim for at least 400g (approximately 5 portions) of fruits and vegetables daily.
+*   **Tip:** Frozen and canned options are excellent, affordable alternatives to fresh produce, provided they have no added sugar or salt.

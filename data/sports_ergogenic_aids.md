@@ -1,9 +1,9 @@
-# Ergogena sredstva v športu in kinetika zmogljivosti
-**Kategorija:** Šport
-**Leto:** 2024
+# Sports Ergogenic Aids and Performance Kinetics
+**Category:** Sports
+**Year:** 2024
 
-Ergogena sredstva so snovi, ki se uporabljajo za povečanje proizvodnje energije in okrevanje. Kreatin monohidrat ostaja zlati standard, ki ga podpira Mednarodno združenje za športno prehrano (ISSN). Deluje tako, da povečuje znotrajmišične zaloge fosfokreatina (PCr) in omogoča hitro regeneracijo ATP med visokointenzivno, kratkotrajno vadbo. Standardna faza obremenjevanja z 20 g/dan 5 dni, ki ji sledi vzdrževalni odmerek 3–5 g/dan, poveča zaloge PCr za 20–40 %.
+Ergogenic aids are substances used to enhance energy production and recovery. Creatine Monohydrate remains the gold standard, supported by the International Society of Sports Nutrition (ISSN). It functions by increasing intramuscular phosphocreatine (PCr) stores, facilitating rapid ATP regeneration during high-intensity, short-duration exercise. A standard loading phase of 20g/day for 5 days, followed by a maintenance dose of 3–5g/day, increases PCr stores by 20–40%.
 
-Beta-alanin (priporočeni odmerek 3,2–6,4 g/dan) deluje kot prekurzor karnozina, znotrajceličnega puferja. Karnozin nevtralizira vodikove ione (H+), ki nastajajo med anaerobno glikolizo, in odlaga 'pekoč občutek' oziroma presnovni acidozis, ki vodi do utrujenosti. Za vzdržljivost je kofein (3–6 mg/kg telesne mase) primarno ergogeno sredstvo, ki deluje kot antagonist adenozinskih receptorjev za zmanjšanje zaznanega napora (RPE) in povečanje oksidacije maščob.
+Beta-alanine (recommended dose 3.2–6.4g/day) acts as a precursor to Carnosine, an intracellular buffer. Carnosine neutralizes hydrogen ions (H+) produced during anaerobic glycolysis, delaying the 'burn' or metabolic acidosis that leads to fatigue. For endurance, Caffeine (3–6 mg/kg of body mass) is a primary ergogenic aid, acting as an adenosine receptor antagonist to reduce the Rating of Perceived Exertion (RPE) and enhance fat oxidation.
 
-Okrevanje po vadbi temelji na 'štirih R-jih': Rehidracija, Refuel (zaloge energije), Repair (popravilo) in Reinforce (krepitev). Resinteza glikogena je najučinkovitejša v prvih 30–60 minutah po vadbi, ko so transporterji GLUT4 premeščeni na celično membrano. Optimalno razmerje ogljikovih hidratov in beljakovin je 3:1. Za vrhunske športnike konsenz iz leta 2024 poudarja 'periodizacijo prehrane' – prilagajanje vnosa glede na obseg treninga namesto statičnega kaloričnega cilja.
+Post-exercise recovery relies on the 'Four Rs': Rehydrate, Refuel, Repair, and Reinforce. Glycogen resynthesis is most efficient in the first 30–60 minutes post-exercise when GLUT4 transporters are translocated to the cell membrane. A carbohydrate-to-protein ratio of 3:1 is optimal. For elite athletes, the 2024 consensus highlights 'Periodized Nutrition'—adjusting intake based on training volume rather than a static caloric goal.
