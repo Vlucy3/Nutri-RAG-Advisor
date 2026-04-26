@@ -132,9 +132,11 @@ elif page == "🍲 Mood-Prep Kitchen":
         else:
             with st.spinner("Finding recipe match..."):
                 try:
-                    results = db.similarity_search_with_relevance_scores(
-                        " ".join(symptoms), k=2, filter={"source": "recipe"}
+                    all_results = db.similarity_search_with_relevance_scores(
+                        " ".join(symptoms), k=20
                     )
+                    results = [(doc, score) for doc, score in all_results
+                               if doc.metadata.get("source") == "recipe"][:2]
                     for doc, score in results:
                         title = doc.metadata.get('title')
                         content = doc.page_content
