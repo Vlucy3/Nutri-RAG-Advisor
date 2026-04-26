@@ -65,9 +65,19 @@ I tested a second strategy using micro-chunks (150/20), which is visible live in
 
 ### Embedding Model
 
-**Model used:** `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
+**Model used:** `intfloat/multilingual-e5-small`
 
-I chose this model specifically because the app is in **Slovenian**, a language not supported by the default English-only `all-MiniLM-L6-v2`. The multilingual variant supports 50+ languages including Slovenian, uses the same 384-dimensional embedding space, and is comparable in size (~120 MB) — suitable for Render's 512 MB RAM free tier.
+I chose a multilingual model because the app is in **Slovenian**, a language not supported by the default English-only `all-MiniLM-L6-v2`. The final model choice required two iterations due to a deployment constraint:
+
+| Model | Parameters | Runtime RAM | Slovenian | Render free tier |
+|-------|-----------|-------------|-----------|-----------------|
+| `all-MiniLM-L6-v2` (default) | 22M | ~90 MB | ❌ | ✅ fits |
+| `paraphrase-multilingual-MiniLM-L12-v2` (first attempt) | 118M | ~470 MB | ✅ | ❌ OOM crash |
+| `intfloat/multilingual-e5-small` (final) | 33M | ~117 MB | ✅ | ✅ fits |
+
+**Deployment issue encountered:** After switching to `paraphrase-multilingual-MiniLM-L12-v2`, Render's free web service (512 MB RAM) crashed on startup with exit code 2. The model's 118M parameters require ~470 MB of RAM at runtime, which — combined with PyTorch, ChromaDB, and Streamlit — exceeded the memory limit.
+
+**Solution:** I switched to `intfloat/multilingual-e5-small`, which supports 100+ languages including Slovenian, uses the same 384-dimensional embedding space as the default model, and fits comfortably within the 512 MB limit at ~117 MB runtime RAM. Slovenian search quality is preserved since the model was explicitly trained on multilingual data.
 
 The model is loaded once at startup with `@st.cache_resource` to avoid re-downloading on every query, and forced to CPU to ensure compatibility with Render's environment.
 
