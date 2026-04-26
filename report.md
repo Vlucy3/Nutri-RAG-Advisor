@@ -1,4 +1,4 @@
-# Her-RAG Svetovalka 2026 — Project Report
+# Her-RAG Advisor 2026 — Project Report
 **Retrieval-Augmented Generation Web Application**
 **Author:** Lucija Vovk | **GitHub:** https://github.com/Vlucy3/Nutri-RAG-Advisor | **Live App:** https://nutrition-rag-app.onrender.com
 
@@ -10,15 +10,15 @@
 I chose **women's hormonal nutrition** as the topic for this project. As a young woman, I find the connection between the menstrual cycle, food choices, and mood genuinely interesting, and I wanted to build something I would actually use. The app covers four hormonal phases of the menstrual cycle, science-backed recipes for specific symptoms (fatigue, anxiety, brain fog, bloating), and the latest 2024–2025 research on macronutrients, gut health, micronutrient synergy, and clinical nutrition.
 
 ### What the App Does
-**Her-RAG Svetovalka 2026** is a Slovenian-language RAG web application with four pages:
+**Her-RAG Advisor 2026** is a RAG web application with four pages:
 
-- **Domov (Home)** — Introduction to the app and its purpose.
-- **Hormonsko iskanje (Hormonal Search)** — Users type a nutrition question in Slovenian and the app returns the most relevant document chunks from the knowledge base, with a match percentage and source label.
-- **Kuhinja za razpoloženje (Mood-Prep Kitchen)** — Users select how they feel from a list of symptoms (e.g. Utrujenost/Fatigue, Tesnoba/Anxiety) and the app retrieves the best-matching recipe with ingredients, instructions, and a scientific explanation.
-- **Statistika (Stats)** — Shows the full knowledge base breakdown and a live chunking strategy comparison.
+- **Home** — Introduction to the app and its purpose.
+- **Hormonal Search** — Users type a nutrition question and the app returns the most relevant document chunks from the knowledge base, with a match percentage and source label.
+- **Mood-Prep Kitchen** — Users select how they feel from a list of symptoms (e.g. Fatigue, Anxiety, Brain Fog) and the app retrieves the best-matching recipe with ingredients, instructions, and a scientific explanation.
+- **Stats** — Shows the full knowledge base breakdown and a live chunking strategy comparison.
 
 ### Screenshot
-*[INSERT SCREENSHOT of the Hormonsko iskanje page with a query and results here]*
+*[INSERT SCREENSHOT of the Hormonal Search page with a query and results here]*
 
 ### Links
 - **GitHub repository:** https://github.com/Vlucy3/Nutri-RAG-Advisor
@@ -37,7 +37,7 @@ The knowledge base contains **30 total documents** across three source types:
 | Recipes | 10 | Mood-targeted recipes with ingredients, instructions, and biochemical mechanisms |
 | Research documents | 15 | Longer markdown files sourced and adapted from WHO guidelines, Endocrine Society publications, Nature Metabolism (2024), and nutrition science literature |
 
-All content was written in **Slovenian**. Research documents cover topics including: menstrual cycle phase nutrition, gut microbiome and SCFAs, macronutrient metabolism, hydration kinetics, micronutrient synergy, plant-based bioenergetics, clinical diabetes nutrition, sports ergogenic aids, dietary guidelines 2020–2025, and practical eating tips.
+All content was written in **English**. Research documents cover topics including: menstrual cycle phase nutrition, gut microbiome and SCFAs, macronutrient metabolism, hydration kinetics, micronutrient synergy, plant-based bioenergetics, clinical diabetes nutrition, sports ergogenic aids, dietary guidelines 2020–2025, and practical eating tips.
 
 ---
 
@@ -51,13 +51,13 @@ The `chunk_overlap=100` ensures that sentences spanning a chunk boundary are not
 
 **Comparison with Strategy B: `chunk_size=150, chunk_overlap=20`**
 
-I tested a second strategy using micro-chunks (150/20), which is visible live in the Statistika page of the app. The results were clearly worse:
+I tested a second strategy using micro-chunks (150/20), which is visible live in the Stats page of the app. The results were clearly worse:
 
-> **Example query:** *"lutealna faza in magnezij"* (luteal phase and magnesium)
+> **Example query:** *"luteal phase and magnesium"*
 >
-> - **Strategy A (600/100):** Returned the full Luteal phase paragraph: *"Progesteron prevladuje in dviga bazalno presnovno hitrost za 100–300 kalorij... Osredotočite se na živila, bogata z magnezijem (bučna semena, špinača), da zmanjšate zadrževanje vode in tesnobo..."* — full context, actionable recommendation included.
+> - **Strategy A (600/100):** Returned the full Luteal phase paragraph: *"Progesterone dominates, raising the basal metabolic rate by 100–300 calories... Focus on Magnesium-rich foods (pumpkin seeds, spinach) to reduce PMS-related water retention and anxiety..."* — full context with actionable dietary recommendation.
 >
-> - **Strategy B (150/20):** Returned only a recipe fragment: *"Magnezij (kakav) + B6 (banana) = tvorba melatonina za globok spanec."* — the magnesium reference was found, but without any hormonal context or dietary reasoning.
+> - **Strategy B (150/20):** Returned only a recipe fragment: *"Magnesium (Cacao) + B6 (Banana) = Melatonin production for deep recovery sleep."* — the magnesium keyword was matched, but without any hormonal context or reasoning.
 
 **Conclusion:** Strategy A (600/100) consistently returns richer, more informative chunks. Strategy B produces more precise keyword matching but sacrifices the surrounding scientific context that makes the answer useful.
 
