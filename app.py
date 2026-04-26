@@ -14,8 +14,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 
 # --- CONFIGURATION ---
-CHROMA_PATH = "chroma_db_v8"
-EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+CHROMA_PATH = "chroma_db_v9"
+EMBEDDING_MODEL = "intfloat/multilingual-e5-small"
 
 # --- JEDRO ZNANJA: MODULI IN RECEPTI ---
 NUTRITION_DATA = [
