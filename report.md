@@ -65,38 +65,38 @@ I tested a second strategy using micro-chunks (150/20), which is visible live in
 
 ### Embedding Model
 
-**Model used:** `intfloat/multilingual-e5-small`
+**Model used:** `sentence-transformers/all-MiniLM-L6-v2`
 
-I chose a multilingual model because the app is in **Slovenian**, a language not supported by the default English-only `all-MiniLM-L6-v2`. The final model choice required two iterations due to a deployment constraint:
+The final model selection required three iterations, each revealing a different constraint:
 
-| Model | Parameters | Runtime RAM | Slovenian | Render free tier |
-|-------|-----------|-------------|-----------|-----------------|
-| `all-MiniLM-L6-v2` (default) | 22M | ~90 MB | ❌ | ✅ fits |
-| `paraphrase-multilingual-MiniLM-L12-v2` (first attempt) | 118M | ~470 MB | ✅ | ❌ OOM crash |
-| `intfloat/multilingual-e5-small` (final) | 33M | ~117 MB | ✅ | ✅ fits |
+| Model | Parameters | Runtime RAM | Render | Search quality |
+|-------|-----------|-------------|--------|---------------|
+| `all-MiniLM-L6-v2` (default, **final**) | 22M | ~90 MB | ✅ fits | ✅ excellent |
+| `paraphrase-multilingual-MiniLM-L12-v2` (attempt 1) | 118M | ~470 MB | ❌ OOM crash | — |
+| `intfloat/multilingual-e5-small` (attempt 2) | 33M | ~117 MB | ✅ fits | ❌ poor match |
 
-**Deployment issue encountered:** After switching to `paraphrase-multilingual-MiniLM-L12-v2`, Render's free web service (512 MB RAM) crashed on startup with exit code 2. The model's 118M parameters require ~470 MB of RAM at runtime, which — combined with PyTorch, ChromaDB, and Streamlit — exceeded the memory limit.
+**Attempt 1 — Out of memory:** After switching to `paraphrase-multilingual-MiniLM-L12-v2`, Render's free web service (512 MB RAM) crashed on startup with exit code 2. The model's 118M parameters require ~470 MB RAM at runtime which, combined with PyTorch, ChromaDB, and Streamlit, exceeded the limit.
 
-**Solution:** I switched to `intfloat/multilingual-e5-small`, which supports 100+ languages including Slovenian, uses the same 384-dimensional embedding space as the default model, and fits comfortably within the 512 MB limit at ~117 MB runtime RAM. Slovenian search quality is preserved since the model was explicitly trained on multilingual data.
+**Attempt 2 — Semantic mismatch:** `intfloat/multilingual-e5-small` fitted in memory but produced poor recipe matches in the Mood-Prep Kitchen. E5 models require explicit `"query: "` and `"passage: "` prefixes during encoding to work correctly. LangChain's `HuggingFaceEmbeddings` does not add these prefixes automatically, causing a mismatch between document and query embedding spaces.
 
-The model is loaded once at startup with `@st.cache_resource` to avoid re-downloading on every query, and forced to CPU to ensure compatibility with Render's environment.
+**Final decision:** Reverted to `all-MiniLM-L6-v2`. The knowledge base is in English and the model produces reliable, high-quality semantic matches. It fits comfortably within Render's 512 MB limit and is loaded once at startup with `@st.cache_resource`, forced to CPU for deployment compatibility.
 
 ---
 
 ### Interesting Findings
 
-- **Off-topic queries behave gracefully:** Searching for unrelated terms like *"avto"* (car) or *"vreme"* (weather) still returns results (ChromaDB always returns k results), but with very low match percentages (~5–15%). The match % label on each card makes this visible to the user, so they can judge result quality themselves.
+- **Off-topic queries behave gracefully:** Searching for unrelated terms like *"car engine"* or *"weather forecast"* still returns results (ChromaDB always returns k results), but with very low match percentages (~5–15%). The match % label on each result card makes this visible to the user so they can judge relevance themselves.
 
-- **Symptom combinations improve recipe matching:** Selecting a single symptom like *"Utrujenost"* returns a good recipe, but combining *"Utrujenost"* + *"Megla v glavi"* shifts the result toward energy-and-focus recipes (like the Frittata or Poke Bowl), which are semantically closer to the combined query vector. The multilingual model handles compound Slovenian terms well.
+- **Symptom combinations improve recipe matching:** Selecting a single symptom like *"Fatigue"* returns a good recipe, but combining *"Fatigue"* + *"Brain Fog"* shifts the result toward energy-and-focus recipes (like the Frittata or Poke Bowl), which are semantically closer to the combined query vector. The model handles multi-symptom queries well because the joint embedding captures the intersection of both concepts.
 
-- **Recipe filter was essential:** Before adding the `filter={"source": "recipe"}` metadata filter to the Mood-Prep Kitchen, the app would sometimes return a research document chunk (e.g. a paragraph about fatty acids) instead of a recipe. The filter guarantees the Kitchen page always shows structured, cook-ready results.
+- **Recipe filter was essential:** Before adding the `filter={"source": "recipe"}` metadata filter to the Mood-Prep Kitchen, the app would sometimes return a research document chunk (e.g. a paragraph about fatty acids) instead of a recipe card. The filter guarantees the Kitchen page always shows structured, cook-ready results.
 
 ---
 
 ## Page 3: Reflections & Extensions
 
 ### What I Learned
-This project tied together everything from the course in a concrete, deployable product. The most valuable insight was understanding how `chunk_size` is not just a technical parameter but a semantic design decision — it determines how much *context* travels with each retrieved result. I also learned that multilingual embedding models require almost no extra effort to integrate but unlock an entirely different audience for the application.
+This project tied together everything from the course in a concrete, deployable product. The most valuable insight was understanding how `chunk_size` is not just a technical parameter but a semantic design decision — it determines how much *context* travels with each retrieved result. I also learned that embedding model selection is a real engineering decision: two models that look similar on paper (both ~100MB, both multilingual) can behave very differently in production due to architectural requirements like query/passage prefixes, and that memory constraints on free cloud tiers must be accounted for from the start.
 
 ### What I Would Improve With More Time
 - **Add LLM response generation:** The app currently returns raw document chunks. Connecting the Anthropic API (the key is already in `.env`) would allow Claude to synthesize a conversational answer from the retrieved chunks — making it true RAG rather than retrieval-only.
