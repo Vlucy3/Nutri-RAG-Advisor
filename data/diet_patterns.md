@@ -1,24 +1,24 @@
-# Established Healthy Diet Patterns
+# Uveljavljeni zdravi prehranjevalni vzorci
 
-While everyone's needs are unique, several dietary patterns are consistently backed by scientific research for their long-term health benefits.
+Čeprav so potrebe vsakogar edinstvene, je več prehranjevalnih vzorcev, ki jih znanstvene raziskave dosledno priporočajo za dolgoročne zdravstvene koristi.
 
-## Top Recommended Patterns
+## Najbolj priporočeni vzorci
 
-### 1. The Mediterranean Diet
-Consistently ranked as one of the healthiest diets in the world, the Mediterranean diet emphasizes:
-*   High intake of plant-based foods (fruits, vegetables, legumes, nuts).
-*   Healthy fats, primarily from extra virgin olive oil.
-*   Moderate consumption of fish and poultry.
-*   Limited red meat and sweets.
+### 1. Mediteranska prehrana
+Mediteranska prehrana je dosledno uvrščena med najzdravnejše prehrane na svetu in poudarja:
+*   Visok vnos rastlinskih živil (sadje, zelenjava, stročnice, oreščki).
+*   Zdrave maščobe, predvsem iz ekstra deviškega olivnega olja.
+*   Zmerno uživanje rib in perutnine.
+*   Omejeno rdeče meso in sladice.
 
-### 2. The DASH Diet
-DASH stands for "Dietary Approaches to Stop Hypertension." It is specifically designed to support heart health by:
-*   Focusing on whole grains and lean proteins.
-*   Emphasizing fruits and vegetables rich in potassium, calcium, and magnesium.
-*   Strictly limiting sodium intake.
+### 2. Prehrana DASH
+DASH pomeni 'Dietetični pristopi za zaustavitev hipertenzije.' Posebej je zasnovana za podporo zdravju srca z:
+*   Osredotočanjem na polnozrnate žitarice in pustane beljakovine.
+*   Poudarjanjem sadja in zelenjave, bogatih s kalijem, kalcijem in magnezijem.
+*   Strogim omejevanjem vnosa natrija.
 
-### 3. The Flexitarian Diet
-A plant-forward approach that is more sustainable for many people than strict vegetarianism. It focuses on plant proteins while allowing for the occasional consumption of meat or fish.
+### 3. Fleksitarijanska prehrana
+Rastlinsko usmerjen pristop, ki je za mnoge bolj vzdržen kot strogo vegetarijanstvo. Osredotoča se na rastlinske beljakovine, hkrati pa občasno dovoljuje uživanje mesa ali rib.
 
-### 4. Plant-Based/Vegan Diets
-Focus entirely on foods derived from plants. When well-planned, these diets are high in fiber and low in saturated fat, but require attention to specific nutrients like Vitamin B12 and Iron.
+### 4. Rastlinska/veganska prehrana
+Povsem se osredotoča na živila rastlinskega izvora. Kadar je dobro načrtovana, je ta prehrana bogata z vlakninami in revna z nasičenimi maščobami, a zahteva pozornost na posebna hranila, kot sta vitamin B12 in železo.

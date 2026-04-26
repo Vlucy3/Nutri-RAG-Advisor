@@ -6,7 +6,7 @@ venv/
 .env
 
 # Project specific
-chroma_db/
+chroma_db*/
 .streamlit/
 # data/*.md  <-- Removed ignore to save everything as requested
 !data/README.md

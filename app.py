@@ -11,70 +11,200 @@ if os.environ.get("IS_RENDER") == "true":
 from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain.docstore.document import Document
+from langchain_core.documents import Document
 
 # --- CONFIGURATION ---
-CHROMA_PATH = "chroma_db"
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+CHROMA_PATH = "chroma_db_v8"
+EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
-# --- 10 NUTRITION DOCUMENTS (Integrated List) ---
+# --- JEDRO ZNANJA: MODULI IN RECEPTI ---
 NUTRITION_DATA = [
-    {"title": "Micronutrient Synergy", "content": "Vitamin D3 acts as a secosteroid hormone essential for intestinal calcium absorption. The 2025 RDA remains 600-800 IU. Synergy exists with Vitamin K2, which directs calcium to bones rather than arteries. Non-heme iron absorption is enhanced by Vitamin C via the reduction of ferric to ferrous iron."},
-    {"title": "Protein & Leucine", "content": "The Leucine Threshold is the ~2.5g of leucine required to trigger mTORC1 for muscle protein synthesis. High-quality proteins like whey (DIAAS ~1.09) are superior to plant sources (soy ~0.90) for reaching this threshold quickly with lower total calories."},
-    {"title": "Gut Microbiome", "content": "Short-Chain Fatty Acids (SCFAs) like Butyrate are produced via fermentation of resistant starch. Butyrate is the primary fuel for colonocytes and has anti-inflammatory properties through HDAC inhibition. Diversity in plant intake (30+ types/week) is the best predictor of gut health."},
-    {"title": "Sports Ergogenics", "content": "Creatine monohydrate increases phosphocreatine stores by 20-40%, facilitating rapid ATP regeneration. Beta-alanine acts as an intracellular buffer by increasing carnosine levels. Caffeine (3-6 mg/kg) reduces perceived exertion by antagonizing adenosine receptors."},
-    {"title": "Diabetes & GL", "content": "Medical Nutrition Therapy for Type 2 Diabetes focuses on Glycemic Load (GL) rather than just Glycemic Index. A GL < 10 is low-impact. Fiber intake of 50g/day has been shown to significantly lower HbA1c levels and improve insulin sensitivity."},
-    {"title": "Hydration Homeostasis", "content": "Hydration is governed by plasma osmolality (280-295 mOsm/kg). Hyponatremia occurs when over-hydrating with plain water dilutes sodium levels (<135 mmol/L). Electrolytes Na+ and K+ are critical for the Na+/K+-ATPase pump function."},
-    {"title": "Food Processing", "content": "Thermal processing can degrade Vitamin C but increases bioavailability of Lycopene and Beta-carotene by breaking cell walls. Ultra-processed foods (NOVA Class 4) are linked to a 20% increase in all-cause mortality due to low nutrient density."},
-    {"title": "Dietary Guidelines", "content": "The 2020-2025 DGA recommends limiting added sugars to <10% and sodium to <2300mg. It introduces 'The First 1000 Days' focus, emphasizing iron and Vitamin D for infants. The Healthy Eating Index (HEI) average for Americans is currently 58/100."},
-    {"title": "Lifecycle Nutrition", "content": "Maternal needs include 400-600mcg of Folate to prevent neural tube defects. Geriatric needs focus on preventing sarcopenia with 1.2-1.5g/kg protein and addressing Vitamin B12 malabsorption due to decreased intrinsic factor production."},
-    {"title": "Plant-Based Optimization", "content": "Vegan diets require B12 supplementation (2.4mcg) and strategic Lysine intake. The conversion of ALA to EPA/DHA is inefficient (<5%), making algae-based DHA supplements beneficial for maintaining omega-3 status without fish consumption."}
+    {"title": "Infradiani ritem", "content": "Usklajevanje 28-dnevnega cikla ženske: folikularna faza (visoka občutljivost za insulin), lutealna faza (višji BMH +300 kcal)."},
+    {"title": "Upravljanje kortizola", "content": "Obvladovanje poklicnega stresa z magnezijem in omega-3 maščobnimi kislinami za preprečevanje visceralne maščobe."},
+    {"title": "Protokol za PCOS", "content": "Razmerje mio-inozitola 40:1 za obnovitev ovulacije in zmanjšanje androgenov, ki jih poganja hiperinzulinemija."},
+    {"title": "Obramba pred endometriozo", "content": "Integracija prehrane MIND-DASH za zmanjšanje prostaglandinov PGE2 in medeničnega vnetja."},
+    {"title": "Presnova estrogena", "content": "Vlakna (35 g) in I3C (križnice) za preprečevanje prevlade estrogena in napenjanja."},
+    {"title": "Solata za stabilnost serotonina (slabo razpoloženje / PMS)", "content": "SESTAVINE: 150 g pečene purice, 1/2 skodelice kinoje, 1 skodelica špinače, 2 žlici orehov. \nNAVODILA: Pomešajte pečeno purico s kuhano kinojo in špinačo. Potresite z orehi. \nMEHANIZEM: Triptofan (purica) + kompleksni ogljikovi hidrati (kinoja) = dvig serotonina za padce razpoloženja v lutealni fazi."},
+    {"title": "Skleda za dopamin in fokus (megla v glavi)", "content": "SESTAVINE: 150 g piščanca/tempeha, 1/2 skodelice divjega riža, 1 skodelica brokolija, 2 žlici bučnih semen. \nNAVODILA: Poparjte brokoli. Nanizajte divji riž, beljakovine in semena. \nMEHANIZEM: Tirozin (beljakovine) + cink (semena) = sinteza dopamina za visoko storilnost pri delu."},
+    {"title": "Enolončnica za umiritev kortizola (tesnoba / stres)", "content": "SESTAVINE: 1 skodelica rdeče leče, 1 čajna žlička kurkume, 1 pločevinka kokosovega mleka, 2 skodelici ohrovta. \nNAVODILA: Kuhajte lečo in kurkumo v kokosovem mleku. Ohrovt dodajte na koncu. \nMEHANIZEM: Protivnetni kurkumin + vlakna leče = stabilizacija osi HPA in nadzor glukoze."},
+    {"title": "Pražena zelenjava za izločanje estrogena (napenjanje)", "content": "SESTAVINE: 2 skodelici brokolija/cvetače, 150 g tofuja, 1 žlica mletega lanenega semena. \nNAVODILA: Popražite zelenjavo in tofu. Na koncu potresite z lanenim semenom brez toplotne obdelave. \nMEHANIZEM: I3C (križnice) + lignani (lan) = učinkovito izločanje hormonov za zmanjšanje napenjanja."},
+    {"title": "Frittata za energijo in vzdržljivost (utrujenost)", "content": "SESTAVINE: 3 omega-3 jajca, 50 g dimljenega lososa, 5 špargeljevih poganjkov. \nNAVODILA: Stepite jajca čez nasekljane špargle. Pecite 12 minut. Postrežite z lososom. \nMEHANIZEM: Holin (jajca) + EPA/DHA (losos) = izboljšan spomin in mitohondrijska učinkovitost ATP."},
+    {"title": "Fermentirana posodica za črevesje in možgane (socialna tesnoba)", "content": "SESTAVINE: 1/2 skodelice kimčija, 1/2 skodelice rjavega riža, 100 g miso lososa, morske alge nori. \nNAVODILA: Nanizajte riž, kimči in lososa v posodico. Jejte z nori algami. \nMEHANIZEM: Probiotiki (kimči) = obnovitev črevesne bariere, zmanjšanje nevrovnetja in razdražljivosti."},
+    {"title": "Magnezijeva peka za spanec (nespečnost)", "content": "SESTAVINE: 1/2 skodelice ovsa, 1 žlica temnega kakava (>70 %), 1 banana, 1 žlica mandljevega masla. \nNAVODILA: Zdrobite banano, pomešajte z ovsom in kakavom. Pecite 15 minut. \nMEHANIZEM: Magnezij (kakav) + B6 (banana) = tvorba melatonina za globok spanec."},
+    {"title": "Inzulinsko varni ovseni kosmiči za PCOS (hrepenenje po sladkem)", "content": "SESTAVINE: 1/2 skodelice celoovesnih kosmičev, 1 čajna žlička cimeta, 1/2 skodelice jagodičja, 1 žlica čia semen. \nNAVODILA: Skuhajte ovsene kosmiče. Vmešajte cimet in čia semena. Potresite z jagodičjem. \nMEHANIZEM: Cimet + vlakna (čia) = zblažen porast glukoze, zmanjšanje akne, ki jih sproža IGF-1."},
+    {"title": "Protivnetni kari (medenične bolečine)", "content": "SESTAVINE: 1 skodelica čičerike, 2 žlici ingverja, 1 sladki krompir, 1 skodelica špinače. \nNAVODILA: Popražite krompir/čičeriko z začimbami za kari in svežim ingverjem. Špinačo dodajte na koncu. \nMEHANIZEM: Ingver (zaviralec COX) = zmanjšanje medeničnih krčev, ki jih povzročajo prostaglandini."},
+    {"title": "Poke skleda za fokus (popoldanska utrujenost)", "content": "SESTAVINE: 120 g tune, 1/2 skodelice edamame, 1 skodelica kumare, 2 redkvice. \nNAVODILA: Združite sestavine na zeleni solati. Polijte z riževim kisom. \nMEHANIZEM: Jod (tuna) + hidracija (kumara) = podpora ščitnici in celična hidracija za odpravo megle v glavi."}
 ]
 
 # --- PAGE SETUP ---
-st.set_page_config(page_title="Nutri-RAG Advisor", page_icon="🥗", layout="wide")
+st.set_page_config(page_title="Her-RAG Svetovalka 2026", page_icon="🧘‍♀️", layout="wide")
+
+# --- CUSTOM CSS ---
+st.markdown("""
+    <style>
+    .stApp { background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); color: #f8f9fa; }
+    [data-testid="stSidebar"] { background-color: #0f0c29; border-right: 1px solid #e94560; }
+    .result-card { background-color: #16213e; padding: 25px; border-radius: 20px; border-left: 8px solid #e94560; box-shadow: 0 15px 25px rgba(0,0,0,0.4); margin-bottom: 25px; }
+    h1, h2, h3 { color: #e94560; font-weight: 800; }
+    .ingredient-tag { background-color: #1a1a2e; color: #95d5b2; padding: 3px 10px; border-radius: 5px; font-size: 0.9rem; border: 0.5px solid #2d6a4f; }
+    .mechanism-box { background-color: #0f0c29; padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px dashed #e94560; }
+    </style>
+    """, unsafe_allow_html=True)
 
 @st.cache_resource
 def get_vector_db():
-    embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL, model_kwargs={'device': 'cpu'})
-    if not os.path.exists(CHROMA_PATH) or not os.listdir(CHROMA_PATH):
-        docs = [Document(page_content=d["content"], metadata={"title": d["title"]}) for d in NUTRITION_DATA]
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
-        chunks = text_splitter.split_documents(docs)
-        db = Chroma.from_documents(chunks, embeddings, persist_directory=CHROMA_PATH)
-        return db
-    return Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
+    try:
+        embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL, model_kwargs={'device': 'cpu'})
+        if not os.path.exists(CHROMA_PATH) or not os.listdir(CHROMA_PATH):
+            docs = []
+            for d in NUTRITION_DATA:
+                is_recipe = "INGREDIENTS:" in d["content"]
+                docs.append(Document(
+                    page_content=d["content"],
+                    metadata={"title": d["title"], "source": "recipe" if is_recipe else "module"}
+                ))
+            data_dir = "data"
+            if os.path.exists(data_dir):
+                for filename in sorted(os.listdir(data_dir)):
+                    if filename.endswith(".md"):
+                        with open(os.path.join(data_dir, filename), "r", encoding="utf-8") as f:
+                            content = f.read()
+                        title = filename.replace(".md", "").replace("_", " ").title()
+                        docs.append(Document(page_content=content, metadata={"title": title, "source": "research"}))
+            text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
+            chunks = text_splitter.split_documents(docs)
+            db = Chroma.from_documents(chunks, embeddings, persist_directory=CHROMA_PATH)
+            return db
+        return Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
+    except Exception as e:
+        st.error(f"Database error: {e}")
+        return None
 
 def clear_db():
-    if os.path.exists(CHROMA_PATH):
-        shutil.rmtree(CHROMA_PATH)
     st.cache_resource.clear()
-    st.success("Database cleared! Refresh the page to re-ingest.")
+    if os.path.exists(CHROMA_PATH):
+        try: shutil.rmtree(CHROMA_PATH); st.success("Baza podatkov ponastavljena!")
+        except: st.error("Znova zaženite aplikacijo za brisanje baze.")
 
 # --- SIDEBAR ---
-st.sidebar.title("🥗 Navigation")
-page = st.sidebar.radio("Go to:", ["Home", "Semantic Search", "Nutrition Stats"])
-if st.sidebar.button("🗑️ Clear Database"):
-    clear_db()
+with st.sidebar:
+    st.image("https://cdn-icons-png.flaticon.com/512/3997/3997818.png", width=80)
+    st.title("Her-RAG v2.5")
+    page = st.radio("Meni", ["🏠 Domov", "🧠 Hormonsko iskanje", "🍲 Kuhinja za razpoloženje", "📊 Statistika"])
+    if st.button("🗑️ Ponastavi bazo"): clear_db()
 
 # --- PAGES ---
-if page == "Home":
-    st.title("🥗 Nutrition Knowledge Engine")
-    st.write("Welcome to your RAG-powered nutrition science advisor. Explore the latest in metabolic health and food science.")
+SOURCE_LABELS = {"recipe": "Recept", "module": "Modul", "research": "Raziskava"}
 
-elif page == "Semantic Search":
-    st.title("🔍 Search Science")
+if page == "🏠 Domov":
+    st.title("Dobrodošli v Her-RAG 2026")
+    st.markdown("Natančna prehrana in vedenjska arhitektura razpoloženja za ženske.")
+
+elif page == "🧠 Hormonsko iskanje":
+    st.title("🧠 Endokrini repozitorij")
     db = get_vector_db()
-    query = st.text_input("Ask a question:", placeholder="e.g., What is the leucine threshold?")
+    query = st.text_input("Iskanje hormonske znanosti:")
     if query:
-        results = db.similarity_search_with_relevance_scores(query, k=3)
-        for doc, score in results:
-            with st.expander(f"Source: {doc.metadata['title']} (Match: {score:.2f})"):
-                st.write(doc.page_content)
+        if db is None:
+            st.error("Baza podatkov ni na voljo. Ponastavite in poskusite znova.")
+        else:
+            try:
+                results = db.similarity_search_with_relevance_scores(query, k=3)
+                for doc, score in results:
+                    relevance = int(score * 100)
+                    source_label = SOURCE_LABELS.get(doc.metadata.get("source", ""), "")
+                    st.markdown(f"""<div class="result-card">
+                        <div style="float:right;color:#95d5b2;font-size:0.9rem;">Ujemanje: {relevance}% &middot; {source_label}</div>
+                        <h3>{doc.metadata.get('title')}</h3>
+                        <p>{doc.page_content}</p>
+                    </div>""", unsafe_allow_html=True)
+            except Exception as e:
+                st.error(f"Napaka iskanja: {e}")
 
-elif page == "Nutrition Stats":
-    st.title("📊 Nutrition Stats")
-    st.metric("Total Knowledge Modules", len(NUTRITION_DATA))
-    st.write("Current Database Inventory:")
-    for d in NUTRITION_DATA:
-        st.text(f"• {d['title']}")
+elif page == "🍲 Kuhinja za razpoloženje":
+    st.title("🍲 Kuhinja za razpoloženje")
+    symptoms = st.multiselect("Danes se počutim:", ["Utrujenost", "Tesnoba", "Megla v glavi", "Napenjanje", "Slabo razpoloženje", "Hrepenenje po sladkem", "Nespečnost", "Medenične bolečine"])
+
+    if symptoms:
+        db = get_vector_db()
+        if db is None:
+            st.error("Baza podatkov ni na voljo. Ponastavite in poskusite znova.")
+        else:
+            with st.spinner("Iščem recept..."):
+                try:
+                    results = db.similarity_search_with_relevance_scores(
+                        " ".join(symptoms), k=2, filter={"source": "recipe"}
+                    )
+                    for doc, score in results:
+                        title = doc.metadata.get('title')
+                        content = doc.page_content
+                        parts = content.split('\n')
+                        ingredients = parts[0] if len(parts) > 0 else ""
+                        instructions = parts[1] if len(parts) > 1 else ""
+                        mechanism = parts[2] if len(parts) > 2 else ""
+
+                        st.markdown(f"""
+                            <div class="result-card">
+                                <h2 style="margin-top:0;">{title}</h2>
+                                <div style="margin-bottom:15px;">{ingredients}</div>
+                                <div style="font-style:italic;">{instructions}</div>
+                                <div class="mechanism-box"><b>🔬 Znanstveno ozadje:</b><br>{mechanism}</div>
+                            </div>
+                        """, unsafe_allow_html=True)
+                except Exception as e:
+                    st.error(f"Napaka iskanja recepta: {e}")
+
+elif page == "📊 Statistika":
+    md_files = sorted([f for f in os.listdir("data") if f.endswith(".md")]) if os.path.exists("data") else []
+    recipe_count = sum(1 for d in NUTRITION_DATA if "SESTAVINE:" in d["content"])
+    module_count = len(NUTRITION_DATA) - recipe_count
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Znanstveni moduli", module_count)
+    col2.metric("Recepti", recipe_count)
+    col3.metric("Raziskovalni dokumenti", len(md_files))
+
+    st.markdown("---")
+    col_left, col_right = st.columns(2)
+    with col_left:
+        st.subheader("Znanstveni moduli")
+        for d in NUTRITION_DATA:
+            if "SESTAVINE:" not in d["content"]:
+                st.write(f"🔬 {d['title']}")
+        st.subheader("Recepti")
+        for d in NUTRITION_DATA:
+            if "SESTAVINE:" in d["content"]:
+                st.write(f"🍳 {d['title']}")
+    with col_right:
+        st.subheader("Raziskovalni dokumenti")
+        for f in md_files:
+            st.write(f"📄 {f.replace('.md', '').replace('_', ' ').title()}")
+
+    st.markdown("---")
+    st.subheader("🧪 Primerjava strategij deljenja besedila")
+    st.write("Kako se isti dokument razdeli pri dveh različnih strategijah:")
+
+    sample_path = os.path.join("data", "menstrual_cycle_nutrition.md")
+    if os.path.exists(sample_path):
+        with open(sample_path, "r", encoding="utf-8") as f:
+            sample_text = f.read()
+        sample_doc = [Document(page_content=sample_text, metadata={"title": "Prehrana menstrualnega cikla"})]
+
+        splitter_a = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
+        splitter_b = RecursiveCharacterTextSplitter(chunk_size=150, chunk_overlap=20)
+        chunks_a = splitter_a.split_documents(sample_doc)
+        chunks_b = splitter_b.split_documents(sample_doc)
+
+        st.caption(f"Vzorec: **Prehrana menstrualnega cikla** — {len(sample_text)} znakov skupaj")
+
+        col_a, col_b = st.columns(2)
+        with col_a:
+            st.markdown(f"**Strategija A: chunk_size=600, overlap=100** ✅ *uporabljena v tej aplikaciji*")
+            st.markdown(f"*→ {len(chunks_a)} kos(ov) besedila*")
+            for i, c in enumerate(chunks_a):
+                st.text_area(f"Kos {i+1} ({len(c.page_content)} znakov)", c.page_content, height=160, key=f"ca_{i}")
+        with col_b:
+            st.markdown(f"**Strategija B: chunk_size=150, overlap=20** — mikro-kosi")
+            st.markdown(f"*→ {len(chunks_b)} kos(ov) besedila*")
+            for i, c in enumerate(chunks_b):
+                st.text_area(f"Kos {i+1} ({len(c.page_content)} znakov)", c.page_content, height=160, key=f"cb_{i}")

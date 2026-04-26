@@ -1,23 +1,23 @@
-# Practical Tips for Sustainable Healthy Eating
+# Praktični nasveti za trajnostno zdravo prehranjevanje
 
-Transitioning to a healthier diet is most successful when changes are gradual and sustainable. Use these practical tips to get started.
+Prehod na zdravejšo prehrano je najuspešnejši, kadar so spremembe postopne in vzdržne. Uporabite te praktične nasvete za začetek.
 
-## Actionable Tips
+## Uporabni nasveti
 
-### 1. The "Add, Don't Subtract" Rule
-Instead of focusing on what to cut out, focus on what healthy items you can *add* to your plate. For example, add a side of spinach to your morning eggs or extra berries to your yogurt. This makes the transition feel like an improvement rather than a restriction.
+### 1. Pravilo 'Dodaj, ne odvzemi'
+Namesto da se osredotočate na to, kaj izključiti, razmislite, katera zdrava živila lahko *dodate* na krožnik. Na primer, dodajte prilogo špinače k jutranjim jajcem ali več jagodičja k jogurtu. To naredi prehod bolj kot izboljšava in manj kot omejitev.
 
-### 2. Practice Intuitive Eating
-Listen to your body's hunger and fullness cues. Try to eat every 3–4 hours to maintain steady energy levels and avoid reaching a "starved state," which often leads to overeating or choosing less nutritious options.
+### 2. Intuitivno prehranjevanje
+Poslušajte signale lakote in sitosti svojega telesa. Jejte vsakih 3–4 ure, da vzdržujete stabilno raven energije in se izognete stanju 'izstradanosti', ki pogosto vodi do prenajedanja ali izbire manj hranljivih možnosti.
 
-### 3. Learn to Read Labels
-Look for short ingredient lists with recognizable whole foods. Be wary of artificial preservatives, synthetic dyes, or low-calorie non-nutritive sweeteners, which are indicators of high processing.
+### 3. Naučite se brati etikete
+Iščite kratke sezname sestavin s prepoznavnimi celovitimi živili. Bodite previdni pri umetnih konzervansih, sintetičnih barvah ali nizkokaloričnih nesladilnih sladilih, ki so pokazatelji visoke stopnje predelave.
 
-### 4. Meal Prep for Success
-Preparing even one or two meals in advance can prevent the "what's for dinner?" stress that often leads to ordering takeout. Simple steps like washing and chopping vegetables can make a big difference.
+### 4. Pripravljajte obroke vnaprej
+Priprava enega ali dveh obrokov vnaprej lahko prepreči stres 'kaj bo za večerjo?', ki pogosto vodi do naročanja hrane. Preprosti koraki, kot je pranje in rezanje zelenjave, lahko naredijo veliko razliko.
 
-### 5. Smart Swaps
-Look for small ways to improve your current favorites:
-*   Swap white rice for brown rice or cauliflower rice.
-*   Swap soda for sparkling water with a splash of fruit juice.
-*   Swap sour cream for plain Greek yogurt.
+### 5. Pametne zamenjave
+Poiščite majhne načine za izboljšanje svojih priljubljenih jedi:
+*   Zamenjajte beli riž z rjavim rižem ali rižem iz cvetače.
+*   Zamenjajte gazirane pijače z mineralno vodo s kapljico sadnega soka.
+*   Zamenjajte kislo smetano z navadnim grškim jogurtom.
