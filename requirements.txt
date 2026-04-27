@@ -5,6 +5,6 @@ langchain-huggingface
 langchain-text-splitters
 chromadb
 sentence-transformers
+tf-keras
 pysqlite3-binary
-python-dotenv
 
