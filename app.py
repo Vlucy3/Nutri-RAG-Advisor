@@ -1,21 +1,10 @@
 import streamlit as st
 import os
-import shutil
-
-# --- RENDER SQLITE FIX ---
-if os.environ.get("IS_RENDER") == "true":
-    __import__('pysqlite3')
-    import sys
-    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import FastEmbedEmbeddings
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
-
-# --- CONFIGURATION ---
-CHROMA_PATH = "chroma_db_v15"
-EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 
 # --- CORE KNOWLEDGE: MODULES AND RECIPES ---
 NUTRITION_DATA = [
@@ -62,40 +51,39 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 @st.cache_resource
-def get_vector_db():
-    try:
-        embeddings = FastEmbedEmbeddings(model_name=EMBEDDING_MODEL)
-        if not os.path.exists(CHROMA_PATH) or not os.listdir(CHROMA_PATH):
-            docs = []
-            for d in NUTRITION_DATA:
-                is_recipe = "INGREDIENTS:" in d["content"]
-                docs.append(Document(
-                    page_content=d["content"],
-                    metadata={"title": d["title"], "source": "recipe" if is_recipe else "module"}
-                ))
-            data_dir = "data"
-            if os.path.exists(data_dir):
-                for filename in sorted(os.listdir(data_dir)):
-                    if filename.endswith(".md"):
-                        with open(os.path.join(data_dir, filename), "r", encoding="utf-8") as f:
-                            content = f.read()
-                        title = filename.replace(".md", "").replace("_", " ").title()
-                        docs.append(Document(page_content=content, metadata={"title": title, "source": "research"}))
-            text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
-            chunks = text_splitter.split_documents(docs)
-            db = Chroma.from_documents(chunks, embeddings, persist_directory=CHROMA_PATH)
-            return db
-        return Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
-    except Exception as e:
-        st.error(f"Database error: {e}")
-        return None
+def build_search_index():
+    docs = []
+    for d in NUTRITION_DATA:
+        is_recipe = "INGREDIENTS:" in d["content"]
+        docs.append(Document(
+            page_content=d["content"],
+            metadata={"title": d["title"], "source": "recipe" if is_recipe else "module"}
+        ))
+    data_dir = "data"
+    if os.path.exists(data_dir):
+        for filename in sorted(os.listdir(data_dir)):
+            if filename.endswith(".md"):
+                with open(os.path.join(data_dir, filename), "r", encoding="utf-8") as f:
+                    content = f.read()
+                title = filename.replace(".md", "").replace("_", " ").title()
+                docs.append(Document(page_content=content, metadata={"title": title, "source": "research"}))
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
+    chunks = text_splitter.split_documents(docs)
+    texts = [c.page_content for c in chunks]
+    vectorizer = TfidfVectorizer(stop_words="english", ngram_range=(1, 2), sublinear_tf=True)
+    matrix = vectorizer.fit_transform(texts)
+    return chunks, vectorizer, matrix
 
-def clear_db():
-    st.cache_resource.clear()
-    if os.path.exists(CHROMA_PATH):
-        try: shutil.rmtree(CHROMA_PATH); st.success("Database Reset!")
-        except Exception as e:
-            st.error(f"Could not delete database: {e}. Restart the app.")
+def search_docs(query, k=3, source_filter=None):
+    chunks, vectorizer, matrix = build_search_index()
+    q_vec = vectorizer.transform([query])
+    scores = cosine_similarity(q_vec, matrix)[0]
+    if source_filter:
+        for i, chunk in enumerate(chunks):
+            if chunk.metadata.get("source") != source_filter:
+                scores[i] = 0.0
+    top_idx = np.argsort(scores)[::-1][:k]
+    return [(chunks[i], float(scores[i])) for i in top_idx if scores[i] > 0]
 
 @st.cache_data
 def get_md_files():
@@ -118,7 +106,6 @@ with st.sidebar:
     st.markdown('<div style="font-size:3rem;text-align:center">🧘‍♀️</div>', unsafe_allow_html=True)
     st.title("Her-RAG v2.5")
     page = st.radio("Menu", ["🏠 Home", "🧠 Hormonal Search", "🍲 Mood-Prep Kitchen", "📊 Stats"])
-    if st.button("🗑️ Reset Database"): clear_db()
 
 # --- PAGES ---
 SOURCE_LABELS = {"recipe": "Recipe", "module": "Module", "research": "Research"}
@@ -129,63 +116,46 @@ if page == "🏠 Home":
 
 elif page == "🧠 Hormonal Search":
     st.title("🧠 Endocrine Repository")
-    db = get_vector_db()
     query = st.text_input("Search for hormonal science:")
     if query:
-        if db is None:
-            st.error("Database unavailable. Please reset and try again.")
+        results = search_docs(query, k=3)
+        if not results:
+            st.info("No matching results found. Try different keywords.")
         else:
-            try:
-                results = db.similarity_search_with_relevance_scores(query, k=3)
-                for doc, score in results:
-                    relevance = int(score * 100)
-                    source_label = SOURCE_LABELS.get(doc.metadata.get("source", ""), "")
-                    st.markdown(f"""<div class="result-card">
-                        <div style="float:right;color:#95d5b2;font-size:0.9rem;">Match: {relevance}% &middot; {source_label}</div>
-                        <h3>{doc.metadata.get('title')}</h3>
-                        <p>{doc.page_content}</p>
-                    </div>""", unsafe_allow_html=True)
-            except Exception as e:
-                st.error(f"Search error: {e}")
+            for doc, score in results:
+                relevance = int(score * 100)
+                source_label = SOURCE_LABELS.get(doc.metadata.get("source", ""), "")
+                st.markdown(f"""<div class="result-card">
+                    <div style="float:right;color:#95d5b2;font-size:0.9rem;">Match: {relevance}% &middot; {source_label}</div>
+                    <h3>{doc.metadata.get('title')}</h3>
+                    <p>{doc.page_content}</p>
+                </div>""", unsafe_allow_html=True)
 
 elif page == "🍲 Mood-Prep Kitchen":
     st.title("🍲 Mood-Prep Kitchen")
     symptoms = st.multiselect("Today I feel:", ["Fatigue", "Anxiety", "Brain Fog", "Bloating", "Low Mood", "Sugar Cravings", "Insomnia", "Pelvic Pain"])
 
     if symptoms:
-        db = get_vector_db()
-        if db is None:
-            st.error("Database unavailable. Please reset and try again.")
-        else:
-            with st.spinner("Finding recipe match..."):
-                try:
-                    all_results = db.similarity_search_with_relevance_scores(
-                        " ".join(symptoms), k=50
-                    )
-                    recipes = [(doc, score) for doc, score in all_results
-                               if doc.metadata.get("source") == "recipe"][:2]
-
-                    if not recipes:
-                        st.warning("No recipes found. Try clicking 'Reset Database' in the sidebar and refresh.")
-                    else:
-                        for doc, score in recipes:
-                            title = doc.metadata.get('title')
-                            content = doc.page_content
-                            parts = content.split('\n')
-                            ingredients = parts[0] if len(parts) > 0 else ""
-                            instructions = parts[1] if len(parts) > 1 else ""
-                            mechanism = parts[2] if len(parts) > 2 else ""
-
-                            st.markdown(f"""
-                                <div class="result-card">
-                                    <h2 style="margin-top:0;">{title}</h2>
-                                    <div style="margin-bottom:15px;">{ingredients}</div>
-                                    <div style="font-style:italic;">{instructions}</div>
-                                    <div class="mechanism-box"><b>🔬 Scientific Why:</b><br>{mechanism}</div>
-                                </div>
-                            """, unsafe_allow_html=True)
-                except Exception as e:
-                    st.error(f"Recipe search error: {e}")
+        with st.spinner("Finding recipe match..."):
+            recipes = search_docs(" ".join(symptoms), k=2, source_filter="recipe")
+            if not recipes:
+                st.warning("No recipes found for these symptoms.")
+            else:
+                for doc, score in recipes:
+                    title = doc.metadata.get('title')
+                    content = doc.page_content
+                    parts = content.split('\n')
+                    ingredients = parts[0] if len(parts) > 0 else ""
+                    instructions = parts[1] if len(parts) > 1 else ""
+                    mechanism = parts[2] if len(parts) > 2 else ""
+                    st.markdown(f"""
+                        <div class="result-card">
+                            <h2 style="margin-top:0;">{title}</h2>
+                            <div style="margin-bottom:15px;">{ingredients}</div>
+                            <div style="font-style:italic;">{instructions}</div>
+                            <div class="mechanism-box"><b>🔬 Scientific Why:</b><br>{mechanism}</div>
+                        </div>
+                    """, unsafe_allow_html=True)
 
 elif page == "📊 Stats":
     md_files = get_md_files()
