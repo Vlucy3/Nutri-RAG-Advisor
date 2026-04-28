@@ -9,12 +9,12 @@ if os.environ.get("IS_RENDER") == "true":
     sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 from langchain_community.vectorstores import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 
 # --- CONFIGURATION ---
-CHROMA_PATH = "chroma_db_v13"
+CHROMA_PATH = "chroma_db_v14"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 # --- CORE KNOWLEDGE: MODULES AND RECIPES ---
@@ -64,7 +64,11 @@ st.markdown("""
 @st.cache_resource
 def get_vector_db():
     try:
-        embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL, model_kwargs={'device': 'cpu'})
+        hf_token = os.environ.get("HUGGINGFACEHUB_API_TOKEN", "")
+        embeddings = HuggingFaceInferenceAPIEmbeddings(
+            api_key=hf_token,
+            model_name=EMBEDDING_MODEL
+        )
         if not os.path.exists(CHROMA_PATH) or not os.listdir(CHROMA_PATH):
             docs = []
             for d in NUTRITION_DATA:

@@ -1,7 +1,7 @@
 services:
   - type: web
     name: nutrition-rag-app
-    env: python
+    runtime: python
     plan: free
     buildCommand: |
       pip install --upgrade pip
@@ -12,3 +12,5 @@ services:
         value: 3.10.0
       - key: IS_RENDER
         value: "true"
+      - key: HUGGINGFACEHUB_API_TOKEN
+        sync: false
